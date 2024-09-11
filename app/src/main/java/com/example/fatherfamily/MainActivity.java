@@ -40,20 +40,17 @@ public class MainActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-        //define buttons
+        //buttons
         Button botao = findViewById(R.id.butao);
         Button botao2 = findViewById(R.id.buttao);
 
-        //10:01 = 601000
-        //15:40 = 924000
-        //
         int vamove = R.raw.audio;
-        int time = 4000;
+
         botao.setOnClickListener(v -> {
             if (player == null) {
                 player = MediaPlayer.create(this, vamove);
             }
-            defineTimePlaying(time, player);
+            defineTimePlaying(player);
         });
         botao2.setOnClickListener(v -> {
             if (player != null) {
@@ -69,8 +66,8 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    //usar tempos em SEGUNDOS
-    public void defineTimePlaying(int time, MediaPlayer player) {
+
+    public void defineTimePlaying(MediaPlayer player) {
         Random random = new Random();
         Timer timer = new Timer();
         TimerTask timerTask = new TimerTask() {
@@ -79,15 +76,16 @@ public class MainActivity extends AppCompatActivity {
                 player.pause();
             }
         };
-        int tempo = time;
-        int aleatorio = random.nextInt(1500000);
 
-        if (aleatorio > 0 && aleatorio <= 1500000) {
+        int time = player.getDuration();
+        int aleatorio = random.nextInt(time);
+
+        //if desnecessario
+        if (aleatorio > 0 && aleatorio <= time) {
             Log.d("(if)VALOR DE ALEATORIO: ", "" + aleatorio);
             player.start();
             player.seekTo(aleatorio);
             timer.schedule(timerTask, 3000);
-
         } else {
             Log.d("(else)VALOR DE ALEATORIO: ", "" + aleatorio);
             Toast.makeText(getApplicationContext(), "Aperta dnv", Toast.LENGTH_SHORT).show();
