@@ -7,9 +7,12 @@ import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.sql.Time;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Random;
 
 import androidx.activity.EdgeToEdge;
@@ -25,13 +28,15 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.concurrent.TimeUnit;
 
 public class MainActivity extends AppCompatActivity {
     public MediaPlayer player;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        Random random = new Random();
+
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
@@ -41,6 +46,7 @@ public class MainActivity extends AppCompatActivity {
             return insets;
         });
         //buttons
+
         Button botao = findViewById(R.id.butao);
         Button botao2 = findViewById(R.id.buttao);
 
@@ -79,12 +85,15 @@ public class MainActivity extends AppCompatActivity {
 
         int time = player.getDuration();
         int aleatorio = random.nextInt(time);
-
-        //if desnecessario
+        SimpleDateFormat sf = new SimpleDateFormat("mm:ss");
+        TextView tempo = findViewById(R.id.valorTempo);
         if (aleatorio > 0 && aleatorio <= time) {
             Log.d("(if)VALOR DE ALEATORIO: ", "" + aleatorio);
             player.start();
             player.seekTo(aleatorio);
+            String teste =  sf.format(aleatorio);
+            //tempoTotal = String.valueOf(tempo);
+            tempo.setText("TEMPO: " + sf.format(aleatorio));
             timer.schedule(timerTask, 3000);
         } else {
             Log.d("(else)VALOR DE ALEATORIO: ", "" + aleatorio);
