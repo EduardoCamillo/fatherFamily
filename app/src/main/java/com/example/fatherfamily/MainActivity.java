@@ -46,7 +46,6 @@ public class MainActivity extends AppCompatActivity {
             return insets;
         });
         //buttons
-
         Button botao = findViewById(R.id.butao);
         Button botao2 = findViewById(R.id.buttao);
 
@@ -91,8 +90,6 @@ public class MainActivity extends AppCompatActivity {
             Log.d("(if)VALOR DE ALEATORIO: ", "" + aleatorio);
             player.start();
             player.seekTo(aleatorio);
-            String teste =  sf.format(aleatorio);
-            //tempoTotal = String.valueOf(tempo);
             tempo.setText("TEMPO: " + sf.format(aleatorio));
             timer.schedule(timerTask, 3000);
         } else {
